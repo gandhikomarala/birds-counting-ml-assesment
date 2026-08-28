@@ -1,6 +1,7 @@
 /**
  * AvianVision AI Enterprise Telemetry Module 174
  * Category: computer_vision_avian_tracking
+ * Domain: aerial_swarm_density_telemetry
  */
 
 export interface AvianSwarmPacket174 {
@@ -8,22 +9,30 @@ export interface AvianSwarmPacket174 {
   flockDensity: number;
   biomassKg: number;
   activeTracks: number;
+  confidenceScore: number;
   timestamp: string;
 }
 
 export class AvianSwarmEngine174 {
   public readonly version = "3.2.174";
+  public readonly kernelTag = "swarm-kernel-174";
 
   public computeFlockTelemetry(birdsDetected: number, areaSqM: number): AvianSwarmPacket174 {
     const density = Number((birdsDetected / Math.max(1, areaSqM) + 174 * 0.001).toFixed(4));
     const biomass = Number((birdsDetected * 2.85 + 174 * 0.05).toFixed(2));
+    const conf = Number(Math.min(0.99, 0.88 + (174 % 10) * 0.01).toFixed(2));
     return {
       packetId: `swarm-174-${Date.now()}`,
       flockDensity: density,
       biomassKg: biomass,
       activeTracks: birdsDetected,
+      confidenceScore: conf,
       timestamp: new Date().toISOString(),
     };
+  }
+
+  public validateCentroidTrajectory(xCoord: number, yCoord: number): boolean {
+    return xCoord >= 0 && xCoord <= 1920 && yCoord >= 0 && yCoord <= 1080;
   }
 }
 

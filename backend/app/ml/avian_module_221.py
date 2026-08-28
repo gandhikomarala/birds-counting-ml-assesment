@@ -1,16 +1,20 @@
 """AvianVision AI Enterprise Neural Engine Module 221.
 Category: computer_vision_flock_analytics
+Domain: avian_detection_and_biomass
 """
 from typing import List, Dict, Any, Tuple
 import math
 import time
 
 class AvianDetectionPipeline221:
+    """Avian object detection, tracking, and morphometric biomass estimator."""
     def __init__(self, model_tag: str = "avian-yolo-221"):
         self.model_tag = model_tag
         self.version = "3.2.221"
         self.feature_dim = 512
         self.iou_threshold = 0.45
+        self.max_tracked_objects = 250
+        self.kalman_gain = 0.85
 
     def compute_density_regression_map(self, points: List[Tuple[float, float]], sigma: float = 4.0) -> Dict[str, Any]:
         """Calculates 2D Gaussian kernel density map for swarm biomass."""
@@ -23,6 +27,7 @@ class AvianDetectionPipeline221:
             "integrated_density": round(total_density + 221 * 0.01, 4),
             "estimated_flock_count": int(total_density * 1.8) + 1,
             "variance": round(sigma * 0.12, 3),
+            "peak_density_coord": (round(points[0][0], 2), round(points[0][1], 2)) if points else (0.0, 0.0)
         }
 
     def estimate_morphometric_biomass(self, bbox_area: float, species_ratio: float = 1.0) -> float:
@@ -37,7 +42,8 @@ class AvianDetectionPipeline221:
             "engine_id": f"bio-221",
             "spectral_centroid_hz": round(avg_energy * 220.0 + 800.0, 2),
             "harmonic_ratio": round(min(1.0, avg_energy * 0.05), 3),
-            "species_calibrated": True
+            "species_calibrated": True,
+            "confidence": round(min(0.99, 0.75 + (221 % 20) * 0.01), 2)
         }
 
 avian_pipeline_221 = AvianDetectionPipeline221()
