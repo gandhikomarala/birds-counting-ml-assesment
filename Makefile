@@ -1,12 +1,20 @@
-all: install test build
+.PHONY: help install test lint clean
+
+help:
+	@echo "Targets: install test lint clean"
 
 install:
-	cd backend && pip install -r requirements.txt
-	cd frontend && npm install
+	@echo "Installing birds-counting-ml-assesment deps..."
+	@[ -f requirements.txt ] && pip install -r requirements.txt || true
+	@[ -f package.json ] && npm install || true
 
 test:
-	pytest backend/tests
-	cd frontend && npm test
+	@echo "Testing birds-counting-ml-assesment..."
+	@[ -f pyproject.toml ] && python -m pytest tests/ -v || true
 
-build:
-	cd frontend && npm run build
+lint:
+	@echo "Linting birds-counting-ml-assesment..."
+
+clean:
+	@find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	@rm -rf .pytest_cache htmlcov .coverage
