@@ -1,21 +1,77 @@
 # AvianVision AI — Computer Vision Wildlife Observation Platform
 
-AvianVision AI is an intelligent wildlife observation and computer vision platform designed to detect, classify, track, and analyze avian species from live camera streams, high-resolution imagery, and video recordings.
+AvianVision AI — Computer Vision Wildlife Observation Platform is a production-grade enterprise application designed with domain-driven architecture, automated quality validation, and high-performance microservices.
 
-## Key Features
-- **Live Observation Canvas**: Real-time bounding box overlays with confidence ratings and species identification.
-- **Taxonomic Classification**: Distinguishes species with common names, scientific Latin binomials, and taxonomy data.
-- **Flock Telemetry Engine**: Computes flock movement vectors (North-East, South-West), velocities, and active track counts.
-- **Observation History Ledger**: Filterable and searchable chronological log of observed wildlife events.
-- **FastAPI Microservices**: Modular REST & WebSocket APIs for real-time frame inference.
+---
 
-## Quick Start
+## Dependencies
+
+* **Runtime**: Python 3.10+ / Node.js 18+
+* **Framework**: FastAPI, Uvicorn, Pydantic v2
+* **Quality & Test**: Pytest, Pytest-cov
+* **Frontend**: HTML5 Canvas / ES6+, Zero-Dependency Web Client
+
+---
+
+## Installation
+
+### 1. Set Up Python Virtual Environment
 ```bash
-# Backend Setup
-cd backend
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+git clone gandhikomarala/birds-counting-ml-assesment.git
+cd birds-counting-ml-assesment
+python -m venv venv
+# Windows:
+.\venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+```
 
-# Docker Deployment
+### 2. Install Dependencies
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+---
+
+## Build
+
+Build containerized production image locally:
+```bash
+docker build -t birds-counting-ml-assesment:latest .
+```
+
+---
+
+## Run
+
+### Microservice Execution
+```bash
+python -m uvicorn Backend.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Containerized Orchestration
+```bash
 docker-compose up -d --build
+```
+
+### Static Web UI
+```bash
+python -m http.server 8000
+```
+
+---
+
+## Usage
+
+1. Access the web dashboard via `http://localhost:8000` or the live GitHub Pages link.
+2. Interact with the core domain engine, real-time analytics, and data persistence layers.
+
+---
+
+## Testing
+
+Execute the automated test suite with coverage report:
+```bash
+pytest tests/ -v
 ```
