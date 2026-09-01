@@ -6,7 +6,7 @@ AvianVision AI — Computer Vision Wildlife Observation Platform is a production
 
 ## Dependencies
 
-* **Runtime**: Python 3.10+ / Node.js 18+
+* **Runtime**: Python 3.10+
 * **Framework**: FastAPI, Uvicorn, Pydantic v2
 * **Quality & Test**: Pytest, Pytest-cov
 * **Frontend**: HTML5 Canvas / ES6+, Zero-Dependency Web Client
@@ -17,7 +17,7 @@ AvianVision AI — Computer Vision Wildlife Observation Platform is a production
 
 ### 1. Set Up Python Virtual Environment
 ```bash
-git clone gandhikomarala/birds-counting-ml-assesment.git
+git clone git@github.com:gandhikomarala/birds-counting-ml-assesment.git
 cd birds-counting-ml-assesment
 python -m venv venv
 # Windows:
